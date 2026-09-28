@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="mr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>खर्च व्यवस्थापन - शेतीसाथी</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f7f3;
+        }
+
+        .header {
+            background: #198754;
+            color: white;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 18px;
+            margin-bottom: 15px;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        /* Remove up/down arrows */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #198754;
+            color: white;
+            font-size: 16px;
+        }
+
+        .back {
+            background: #6c757d;
+        }
+
+        .expense {
+            font-size: 19px;
+            font-weight: bold;
+        }
+
+        .amount {
+            color: #dc3545;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .delete-button {
+            background: #dc3545;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+    <h1>💰 खर्च व्यवस्थापन</h1>
+
+</div>
+
+
+<div class="container">
+
+
+    <!-- ADD EXPENSE -->
+
+    <div class="card">
+
+        <h2>➕ नवीन खर्च नोंदवा</h2>
+
+        <form method="POST">
+
+            <label>खर्चाचा प्रकार</label>
+
+            <select name="expense_type" required>
+
+                <option value="">
+                    खर्चाचा प्रकार निवडा
+                </option>
+
+                <option>डिझेल</option>
+
+                <option>दुरुस्ती</option>
+
+                <option>देखभाल</option>
+
+                <option>ड्रायव्हरचे पैसे</option>
+
+                <option>इतर</option>
+
+            </select>
+
+
+            <label>वर्णन</label>
+
+            <input
+                type="text"
+                name="description"
+                placeholder="खर्चाचे वर्णन टाका"
+            >
+
+
+            <label>रक्कम (₹)</label>
+
+            <input
+                type="number"
+                step="1"
+                name="amount"
+                min="0"
+                required
+            >
+
+
+            <label>तारीख</label>
+
+            <input
+                type="date"
+                name="expense_date"
+                required
+            >
+
+
+            <button type="submit">
+
+                💾 खर्च जतन करा
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- EXPENSE HISTORY -->
+
+    <div class="card">
+
+        <h2>📋 खर्च इतिहास</h2>
+
+        <div class="amount">
+
+            एकूण खर्च:
+            ₹{{ "%.0f"|format(total_expenses) }}
+
+        </div>
+
+    </div>
+
+
+    {% if expenses %}
+
+        {% for expense in expenses %}
+
+        <div class="card">
+
+            <div class="expense">
+
+                💰 {{ expense[1] }}
+
+            </div>
+
+
+            {% if expense[2] %}
+
+            <p>
+                📝 {{ expense[2] }}
+            </p>
+
+            {% endif %}
+
+
+            <p>
+                📅 {{ expense[4] }}
+            </p>
+
+
+            <p class="amount">
+
+                ₹{{ "%.0f"|format(expense[3]) }}
+
+            </p>
+
+
+            <button
+                class="delete-button"
+                onclick="if(confirm('हा खर्च हटवायचा आहे का?')) {
+                    window.location.href='/delete-expense/{{ expense[0] }}';
+                }"
+            >
+
+                🗑️ खर्च हटवा
+
+            </button>
+
+        </div>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <div class="card">
+
+            <p>
+                अजून कोणताही खर्च नोंदवलेला नाही.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- BACK BUTTON -->
+
+    <button
+        class="back"
+        onclick="window.location.href='/'"
+    >
+
+        ← मुख्य पृष्ठावर जा
+
+    </button>
+
+
+</div>
+
+</body>
+
+</html>
