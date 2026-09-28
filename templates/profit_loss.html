@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profit & Loss - ShetiSathi</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f7f3;
+        }
+
+        .header {
+            background: #198754;
+            color: white;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .amount {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .income {
+            color: #198754;
+        }
+
+        .expense {
+            color: #dc3545;
+        }
+
+        .profit {
+            color: #0d6efd;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 10px;
+            background: #198754;
+            color: white;
+            font-size: 16px;
+        }
+
+        .back {
+            background: #6c757d;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>📈 Profit & Loss</h1>
+</div>
+
+<div class="container">
+
+    <div class="card">
+        <h2>💰 Total Income</h2>
+        <div class="amount income">
+            ₹{{ total_income }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>💸 Total Expenses</h2>
+        <div class="amount expense">
+            ₹{{ total_expenses }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>📈 Profit / Loss</h2>
+        <div class="amount profit">
+            ₹{{ profit }}
+        </div>
+    </div>
+
+    <button class="back" onclick="window.location.href='/'">
+        ← Back to Dashboard
+    </button>
+
+</div>
+
+</body>
+</html>
