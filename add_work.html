@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>नवीन काम नोंदवा - शेतीसाथी</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f7f3;
+        }
+
+        .header {
+            background: #198754;
+            color: white;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            margin-top: 7px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        /* Remove up/down arrows from number inputs */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+
+        input[readonly] {
+            background: #eeeeee;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 10px;
+            background: #198754;
+            color: white;
+            font-size: 17px;
+        }
+
+        .back {
+            background: #6c757d;
+        }
+
+        .amount-box {
+            background: #e8f5e9;
+            border-radius: 10px;
+            padding: 5px 10px 15px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>🚜 नवीन काम नोंदवा</h1>
+</div>
+
+<div class="container">
+
+    <div class="card">
+
+        <form method="POST">
+
+            <label>ग्राहकाचे नाव</label>
+            <input type="text" name="customer_name" required>
+
+            <label>गाव</label>
+            <input type="text" name="village">
+
+            <label>मोबाईल क्रमांक</label>
+            <input type="tel" name="mobile">
+
+            <label>सेवा</label>
+            <select name="service" id="service" required>
+                <option value="">सेवा निवडा</option>
+
+                <option>नांगरणी</option>
+                <option>पेरणी (BBF)</option>
+                <option>पेरणी (सारा)</option>
+                <option>रोटाव्हेटर</option>
+                <option>ट्रॉली</option>
+                <option>फणपाळी</option>
+                <option>सरी सोडणे</option>
+                <option>हरभरा (मळणी)</option>
+                <option>गहू (मळणी)</option>
+                <option>ज्वारी (मळणी)</option>
+                <option>सोयाबीन (मळणी)</option>
+                <option>कल्टिव्हेटर</option>
+            </select>
+
+            <label>हिशोबाचा प्रकार</label>
+
+            <select name="calculation_type" id="calculation_type" required>
+                <option value="">प्रकार निवडा</option>
+
+                <option value="एकर">एकर</option>
+                <option value="तास">तास</option>
+                <option value="प्रति फेरा">फेरी</option>
+                <option value="गोणी">गोणी</option>
+                <option value="गुंठा">गुंठा</option>
+            </select>
+
+            <label>प्रमाण</label>
+
+            <input
+                type="number"
+                step="1"
+                min="0"
+                name="quantity"
+                id="quantity"
+                required
+            >
+
+            <label>दर</label>
+
+            <input
+                type="number"
+                step="1"
+                min="0"
+                name="rate"
+                id="rate"
+                readonly
+                required
+            >
+
+            <div class="amount-box">
+
+                <label>एकूण रक्कम</label>
+
+                <input
+                    type="number"
+                    step="1"
+                    min="0"
+                    name="total"
+                    id="total"
+                    readonly
+                >
+
+                <label>जमा रक्कम</label>
+
+                <input
+                    type="number"
+                    step="1"
+                    min="0"
+                    name="paid"
+                    id="paid"
+                    value="0"
+                >
+
+                <label>बाकी रक्कम</label>
+
+                <input
+                    type="number"
+                    step="1"
+                    min="0"
+                    name="remaining"
+                    id="remaining"
+                    readonly
+                >
+
+            </div>
+
+            <label>कामाची तारीख</label>
+
+            <input
+                type="date"
+                name="work_date"
+                id="work_date"
+                readonly
+                required
+            >
+
+            <button type="submit">
+                💾 काम जतन करा
+            </button>
+
+        </form>
+
+        <button
+            class="back"
+            onclick="window.location.href='/'">
+            ← मुख्य पृष्ठावर जा
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const service = document.getElementById("service");
+    const calculationType = document.getElementById("calculation_type");
+
+    const quantity = document.getElementById("quantity");
+    const rate = document.getElementById("rate");
+
+    const total = document.getElementById("total");
+    const paid = document.getElementById("paid");
+    const remaining = document.getElementById("remaining");
+
+
+    // Get rate from database
+    async function getRate() {
+
+        const selectedService = service.value;
+        const selectedType = calculationType.value;
+
+        if (!selectedService || !selectedType) {
+            rate.value = "";
+            calculateAmount();
+            return;
+        }
+
+        try {
+
+            const response = await fetch(
+                `/get-rate?service=${encodeURIComponent(selectedService)}&calculation_type=${encodeURIComponent(selectedType)}`
+            );
+
+            const data = await response.json();
+
+            rate.value = data.rate || 0;
+
+            calculateAmount();
+
+        } catch (error) {
+
+            console.error("Error getting rate:", error);
+
+            rate.value = "";
+            calculateAmount();
+        }
+    }
+
+
+    // Calculate total and remaining
+    function calculateAmount() {
+
+        const q = parseFloat(quantity.value) || 0;
+        const r = parseFloat(rate.value) || 0;
+        let p = parseFloat(paid.value) || 0;
+
+        const totalAmount = q * r;
+
+        // Prevent paid amount from exceeding total amount
+        if (p > totalAmount) {
+            p = totalAmount;
+            paid.value = Math.round(totalAmount);
+        }
+
+        const remainingAmount = totalAmount - p;
+
+        // Show whole numbers only
+        total.value = Math.round(totalAmount);
+        remaining.value = Math.round(remainingAmount);
+    }
+
+
+    service.addEventListener("change", getRate);
+
+    calculationType.addEventListener("change", getRate);
+
+    quantity.addEventListener("input", calculateAmount);
+
+    paid.addEventListener("input", calculateAmount);
+
+
+    // Automatically set today's date
+    const today = new Date();
+
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+
+    document.getElementById("work_date").value =
+        `${year}-${month}-${day}`;
+
+</script>
+
+</body>
+</html>

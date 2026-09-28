@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ग्राहक शोधा - शेतीसाथी</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f7f3;
+        }
+
+        .header {
+            background: #198754;
+            color: white;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #198754;
+            color: white;
+            font-size: 16px;
+        }
+
+        .back {
+            background: #6c757d;
+        }
+
+        .customer {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .pending {
+            color: #dc3545;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>👤 ग्राहक शोधा</h1>
+</div>
+
+<div class="container">
+
+    <div class="card">
+
+        <form method="GET">
+
+            <input
+                type="text"
+                name="search"
+                placeholder="ग्राहकाचे नाव किंवा मोबाईल क्रमांक टाका"
+                value="{{ search }}"
+            >
+
+            <button type="submit">
+                🔍 शोधा
+            </button>
+
+        </form>
+
+    </div>
+
+    {% if searched %}
+
+        {% if records %}
+
+            {% for record in records %}
+
+            <div class="card">
+
+                <div class="customer">
+                    👤 {{ record[0] }}
+                </div>
+
+                <p>📍 गाव: {{ record[1] }}</p>
+
+                <p>📱 मोबाईल: {{ record[2] }}</p>
+
+                <p>🚜 सेवा: {{ record[3] }}</p>
+
+                <p>📏 प्रमाण: {{ record[4] }}</p>
+
+                <p>💵 दर: ₹{{ record[5] }}</p>
+
+                <p>💰 एकूण रक्कम: ₹{{ record[6] }}</p>
+
+                <p>✅ जमा रक्कम: ₹{{ record[7] }}</p>
+
+                <p class="pending">
+                    ❌ बाकी रक्कम: ₹{{ record[8] }}
+                </p>
+
+                <p>📅 तारीख: {{ record[9] }}</p>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="card">
+                <h3>❌ कोणतीही नोंद सापडली नाही</h3>
+                <p>कृपया दुसरे ग्राहकाचे नाव किंवा मोबाईल क्रमांक शोधा.</p>
+            </div>
+
+        {% endif %}
+
+    {% endif %}
+
+    <button class="back" onclick="window.location.href='/'">
+        ← मुख्य पृष्ठावर जा
+    </button>
+
+</div>
+
+</body>
+</html>

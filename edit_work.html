@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>कामात बदल करा - शेतीसाथी</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f7f3;
+        }
+
+        .header {
+            background: #198754;
+            color: white;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 10px;
+            background: #198754;
+            color: white;
+            font-size: 17px;
+        }
+
+        .back {
+            background: #6c757d;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>✏️ कामात बदल करा</h1>
+</div>
+
+<div class="container">
+
+    <div class="card">
+
+        <form method="POST">
+
+            <label>ग्राहकाचे नाव</label>
+            <input type="text" name="customer_name"
+                   value="{{ record[1] }}" required>
+
+            <label>गाव</label>
+            <input type="text" name="village"
+                   value="{{ record[2] }}">
+
+            <label>मोबाईल क्रमांक</label>
+            <input type="text" name="mobile"
+                   value="{{ record[3] }}">
+
+            <label>सेवा</label>
+            <input type="text" name="service"
+                   value="{{ record[4] }}">
+
+            <label>प्रमाण</label>
+            <input type="number" step="0.01"
+                   name="quantity"
+                   value="{{ record[5] }}" required>
+
+            <label>दर</label>
+            <input type="number" step="0.01"
+                   name="rate"
+                   value="{{ record[6] }}" required>
+
+            <label>जमा रक्कम</label>
+            <input type="number" step="0.01"
+                   name="paid"
+                   value="{{ record[8] }}" required>
+
+            <label>कामाची तारीख</label>
+            <input type="date"
+                   name="work_date"
+                   value="{{ record[10] }}" required>
+
+            <button type="submit">
+                💾 बदल जतन करा
+            </button>
+
+        </form>
+
+        <button class="back"
+                onclick="window.location.href='/view-records'">
+            ← नोंदींकडे परत जा
+        </button>
+
+    </div>
+
+</div>
+
+</body>
+</html>

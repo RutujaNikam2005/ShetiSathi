@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>दैनिक अहवाल - शेतीसाथी</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f7f3;
+        }
+
+        .header {
+            background: #198754;
+            color: white;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 18px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #198754;
+            color: white;
+            font-size: 16px;
+        }
+
+        .back {
+            background: #6c757d;
+        }
+
+        .summary {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .customer {
+            font-size: 19px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>📊 दैनिक अहवाल</h1>
+</div>
+
+<div class="container">
+
+    <div class="card">
+
+        <form method="GET">
+
+            <label><b>तारीख निवडा</b></label>
+
+            <input
+                type="date"
+                name="date"
+                value="{{ selected_date }}"
+                required
+            >
+
+            <button type="submit">
+                🔍 अहवाल पहा
+            </button>
+
+        </form>
+
+    </div>
+
+    {% if searched %}
+
+    <div class="card">
+
+        <p class="summary">
+            📅 तारीख: {{ selected_date }}
+        </p>
+
+        <p class="summary">
+            🚜 एकूण कामे: {{ total_works }}
+        </p>
+
+        <p class="summary">
+            💰 एकूण रक्कम: ₹{{ total_amount }}
+        </p>
+
+        <p class="summary">
+            ✅ एकूण जमा: ₹{{ total_paid }}
+        </p>
+
+        <p class="summary">
+            ❌ एकूण बाकी: ₹{{ total_remaining }}
+        </p>
+
+    </div>
+
+    {% if records %}
+
+        {% for record in records %}
+
+        <div class="card">
+
+            <div class="customer">
+                👤 {{ record[0] }}
+            </div>
+
+            <p>📍 गाव: {{ record[1] }}</p>
+
+            <p>🚜 सेवा: {{ record[2] }}</p>
+
+            <p>📏 प्रमाण: {{ record[3] }}</p>
+
+            <p>💵 दर: ₹{{ record[4] }}</p>
+
+            <p>💰 एकूण रक्कम: ₹{{ record[5] }}</p>
+
+            <p>✅ जमा रक्कम: ₹{{ record[6] }}</p>
+
+            <p>❌ बाकी रक्कम: ₹{{ record[7] }}</p>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="card">
+            <h3>❌ कोणतेही काम सापडले नाही</h3>
+            <p>या तारखेला कोणतेही काम नोंदवलेले नाही.</p>
+        </div>
+
+    {% endif %}
+
+    {% endif %}
+
+    <button class="back" onclick="window.location.href='/'">
+        ← मुख्य पृष्ठावर जा
+    </button>
+
+</div>
+
+</body>
+</html>
