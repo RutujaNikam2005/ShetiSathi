@@ -197,9 +197,6 @@ def add_missing_rates():
 
     print("प्रति गुंठा rates added successfully!")
 
-    conn.commit()
-    conn.close()
-
 
 # -----------------------------------------
 # Run database directly
