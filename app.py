@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
-from database import create_database, DB_PATH
+from database import create_database, add_missing_rates, DB_PATH
 
 app = Flask(__name__)
 
 create_database()
+add_missing_rates()
 def create_expense_table():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
