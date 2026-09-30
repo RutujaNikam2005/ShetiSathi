@@ -166,26 +166,36 @@ def add_missing_rates():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT COUNT(*)
-        FROM rates
-        WHERE service = ? AND calculation_type = ?
-    """, ("पेरणी सारा", "प्रति एकर"))
+    new_rates = [
+        ("नांगरणी", "प्रति गुंठा", 0),
+        ("पेरणी (सारा)", "प्रति गुंठा", 0),
+        ("पेरणी (BBF)", "प्रति गुंठा", 0),
+        ("फणपाळी", "प्रति गुंठा", 0),
+        ("सरी सोडणे", "प्रति गुंठा", 0),
+        ("रोटाव्हेटर", "प्रति गुंठा", 0)
+    ]
 
-    count = cursor.fetchone()[0]
-
-    if count == 0:
+    for service, calculation_type, rate in new_rates:
 
         cursor.execute("""
-            INSERT INTO rates (
-                service,
-                calculation_type,
-                rate
-            )
-            VALUES (?, ?, ?)
-        """, ("पेरणी सारा", "प्रति एकर", 2000))
+            SELECT COUNT(*)
+            FROM rates
+            WHERE service = ? AND calculation_type = ?
+        """, (service, calculation_type))
 
-        print("पेरणी सारा rate added successfully!")
+        count = cursor.fetchone()[0]
+
+        if count == 0:
+            cursor.execute("""
+                INSERT INTO rates
+                (service, calculation_type, rate)
+                VALUES (?, ?, ?)
+            """, (service, calculation_type, rate))
+
+    conn.commit()
+    conn.close()
+
+    print("प्रति गुंठा rates added successfully!")
 
     conn.commit()
     conn.close()
