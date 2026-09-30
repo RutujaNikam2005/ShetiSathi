@@ -1,1 +1,127 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>शेतीसाथी</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f7f3;
+        }
+
+        .header {
+            background: #198754;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            margin-top: 0;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 10px;
+            background: #198754;
+            color: white;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>🚜 शेतीसाथी</h1>
+        <p>ट्रॅक्टर व्यवसाय व्यवस्थापन</p>
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+            <h2>➕ नवीन काम नोंदवा</h2>
+            <button onclick="window.location.href='/add-work'">
+                नवीन काम नोंदवा
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>👤 ग्राहक शोधा</h2>
+            <button onclick="window.location.href='/search-customer'">
+                ग्राहक शोधा
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>💰 बाकी रक्कम</h2>
+            <button onclick="window.location.href='/pending-payments'">
+                बाकी रक्कम
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>📊 दैनिक अहवाल</h2>
+            <button onclick="window.location.href='/daily-report'">
+                दैनिक अहवाल
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>📋 सर्व नोंदी</h2>
+            <button onclick="window.location.href='/view-records'">
+                सर्व नोंदी
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>💰 खर्च व्यवस्थापन</h2>
+
+            <button onclick="window.location.href='/expenses'">
+                💸 खर्च व्यवस्थापन
+            </button>
+
+            <button onclick="window.location.href='/profit-loss'">
+                📈 नफा आणि तोटा
+            </button>
+
+            <button onclick="window.location.href='/payment-history'">
+                💰 जमा रक्कम इतिहास
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>⚙️ दर व्यवस्थापन</h2>
+
+            <button onclick="window.location.href='/manage-rates'">
+                दर व्यवस्थापन
+            </button>
+        </div>
+
+    </div>
+
+</body>
+</html>
