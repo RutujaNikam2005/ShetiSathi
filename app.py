@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
+from database import create_database, DB_PATH
 
 app = Flask(__name__)
 
-DB_PATH = "shetisathi.db"
+create_database()
 def create_expense_table():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
